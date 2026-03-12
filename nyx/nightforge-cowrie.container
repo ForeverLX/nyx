@@ -1,0 +1,19 @@
+[Unit]
+Description=NightForge Cowrie SSH Honeypot
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=docker.io/cowrie/cowrie:latest
+ContainerName=nightforge-cowrie
+PublishPort=22:2222
+Volume=/var/nightforge/cowrie-logs:/cowrie/cowrie-git/var/log/cowrie:z
+Volume=/var/nightforge/cowrie-lib:/cowrie/cowrie-git/var/lib/cowrie:z
+AutoUpdate=registry
+
+[Service]
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
