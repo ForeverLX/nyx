@@ -1,0 +1,19 @@
+[Unit]
+Description=Homepage NOC Dashboard
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=ghcr.io/gethomepage/homepage:latest
+ContainerName=homepage
+PublishPort=8282:3000
+Volume=%h/homepage/config:/app/config:z
+Environment=HOMEPAGE_ALLOWED_HOSTS=192.168.0.251:8282,dash.lan
+AutoUpdate=registry
+
+[Service]
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

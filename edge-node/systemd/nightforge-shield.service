@@ -1,6 +1,6 @@
 [Unit]
-Description=NightForge Shield — Suricata + Cowrie threat scoring and auto-blocking
-After=network-online.target nightforge-cowrie.service
+Description=NightForge Shield — Suricata + Cowrie → nftables
+After=network-online.target
 Wants=network-online.target
 
 [Service]

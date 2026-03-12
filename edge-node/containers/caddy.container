@@ -1,0 +1,20 @@
+[Unit]
+Description=Caddy TLS Reverse Proxy
+After=network-online.target vaultwarden.service homepage.service
+Wants=network-online.target
+
+[Container]
+Image=docker.io/library/caddy:latest
+ContainerName=caddy
+Network=host
+Volume=%h/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+Volume=%h/caddy/data:/data:z
+Volume=%h/caddy/config:/config:z
+AutoUpdate=registry
+
+[Service]
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

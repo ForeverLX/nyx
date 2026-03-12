@@ -1,0 +1,23 @@
+[Unit]
+Description=Pi-hole DNS Sinkhole
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=docker.io/pihole/pihole:latest
+ContainerName=pihole
+Network=host
+EnvironmentFile=/etc/containers/secrets/pihole.env
+Environment=TZ=UTC
+Environment=PIHOLE_DNS_=1.1.1.1;8.8.8.8
+Environment=FTL_CMD=no-daemon
+Environment=FTLCONF_webserver_port=8083
+Volume=/etc/pihole/hosts:/etc/pihole/hosts:ro
+AutoUpdate=registry
+
+[Service]
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
