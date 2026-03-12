@@ -8,6 +8,7 @@ Image=ghcr.io/gethomepage/homepage:latest
 ContainerName=homepage
 PublishPort=8282:3000
 Volume=%h/homepage/config:/app/config:z
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
 Environment=HOMEPAGE_ALLOWED_HOSTS=192.168.0.251:8282,dash.lan
 AutoUpdate=registry
 
@@ -17,3 +18,7 @@ RestartSec=10
 
 [Install]
 WantedBy=default.target
+
+[Unit]
+After=podman.socket
+Requires=podman.socket

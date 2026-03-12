@@ -1,0 +1,10 @@
+- search:
+    provider: brave
+    target: _blank
+- netdata:
+    url: http://host.containers.internal:19999
+- datetime:
+    format:
+      timeStyle: short
+      dateStyle: medium
+      hourCycle: h23
