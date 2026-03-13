@@ -9,10 +9,12 @@ ContainerName=pihole
 Network=host
 EnvironmentFile=/etc/containers/secrets/pihole.env
 Environment=TZ=UTC
-Environment=PIHOLE_DNS_=1.1.1.1;8.8.8.8
+Environment=PIHOLE_DNS_=1.1.1.1;1.0.0.1
 Environment=FTL_CMD=no-daemon
 Environment=FTLCONF_webserver_port=8083
 Volume=/etc/pihole/hosts:/etc/pihole/hosts:ro
+Volume=/srv/pihole/etc-pihole:/etc/pihole:Z
+Volume=/srv/pihole/etc-dnsmasq.d:/etc/dnsmasq.d:Z
 AutoUpdate=registry
 
 [Service]
