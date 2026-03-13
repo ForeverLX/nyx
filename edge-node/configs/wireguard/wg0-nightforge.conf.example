@@ -1,0 +1,11 @@
+[Interface]
+Address = 10.0.0.3/24
+PrivateKey = <NIGHTFORGE_PRIVATE_KEY>
+DNS = 192.168.0.251
+
+[Peer]
+# Cerberus (edge node)
+PublicKey = dLUNlsg+NvRucaSOxiMZxTVBo4kULZ/rMyV9MwUTWmM=
+Endpoint = 192.168.0.251:51820
+AllowedIPs = 10.0.0.0/24
+PersistentKeepalive = 25
