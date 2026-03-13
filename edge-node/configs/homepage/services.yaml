@@ -1,33 +1,30 @@
 - Cerberus Threat Intel:
     - Suricata IDS:
-        icon: /app/config/icons/suricata.svg
+        icon: /icons/suricata.svg
         href: https://netdata.lan
         description: Network Intrusion Detection
         widget:
           type: netdata
           url: http://host.containers.internal:19999
-          node: "b-k3s"
-          chart: "suricata.alerts"
+          node: b-k3s
+          chart: system.cpu
     - Cowrie Honeypot:
-        icon: /app/config/icons/cowrie.svg
+        icon: /icons/cowrie.svg
         href: https://netdata.lan
         description: SSH/Telnet Deception Layer
         widget:
-          type: customapi
-          url: http://host.containers.internal:19999/api/v1/data?chart=container_cpu_usage.nightforge-cowrie&points=1&group=sum
-          refreshInterval: 30000
-          mappings:
-            - field: data.0.0
-              label: CPU %
-              format: float
+          type: netdata
+          url: http://host.containers.internal:19999
+          node: b-k3s
+          chart: net.eth0
     - NightForge Shield:
-        icon: /app/config/icons/shield.svg
+        icon: /icons/shield.svg
         href: "#"
         description: Scan Queue — Phase 4
 
 - Core Infrastructure:
     - Gitea:
-        icon: /app/config/icons/gitea.png
+        icon: /icons/gitea.png
         href: https://git.lan
         description: Private Git Server
         widget:
@@ -35,29 +32,29 @@
           url: http://host.containers.internal:3000
           key: "4151a032eb61bd1e7d1e1de2bc3bb0d12ca3ccfb"
     - Vaultwarden:
-        icon: /app/config/icons/vaultwarden.png
+        icon: /icons/vaultwarden.png
         href: https://vault.lan
         description: Password Management
     - Pi-hole:
-        icon: /app/config/icons/pi-hole.png
+        icon: /icons/pi-hole.png
         href: https://pihole.lan/admin
         description: Network DNS & Ad Block
     - Homepage:
-        icon: /app/config/icons/homepage.png
+        icon: /icons/homepage.png
         href: https://dash.lan
         description: This Dashboard
 
 - Monitoring:
     - Netdata:
-        icon: /app/config/icons/netdata.png
+        icon: /icons/netdata.png
         href: https://netdata.lan
         description: Real-time System Metrics
         widget:
           type: netdata
           url: http://host.containers.internal:19999
-          node: "b-k3s"
-          chart: "system.cpu"
+          node: b-k3s
+          chart: system.cpu
     - Pi-hole DNS:
-        icon: /app/config/icons/pi-hole.png
+        icon: /icons/pi-hole.png
         href: https://pihole.lan/admin
         description: DNS Query Statistics
