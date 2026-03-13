@@ -1,7 +1,7 @@
 - search:
     provider: custom
     url: https://search.lan/search?q=
-    suggestionUrl: https://search.lan/autocompleter?q=
+    suggestionUrl: http://host.containers.internal:8888/autocompleter?q=
     showSearchSuggestions: true
     target: _blank
 - datetime:
