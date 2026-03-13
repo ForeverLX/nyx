@@ -10,23 +10,29 @@
           allowScrolling: yes
 - Cerberus Threat Intel:
     - Suricata IDS:
-        icon: /icons/suricata.svg
-        href: https://netdata.lan
-        description: Network Intrusion Detection
         widget:
-          type: netdata
-          url: http://host.containers.internal:19999
-          node: b-k3s
-          chart: system.cpu
+          type: customapi
+          url: http://host.containers.internal:19999/api/v1/data?chart=app.Suricata-Main_cpu_utilization&points=1&group=average
+          refreshInterval: 15000
+          mappings:
+            - field: data.0.1
+              label: User CPU %
+              format: float
+            - field: data.0.2
+              label: Sys CPU %
+              format: float
     - Cowrie Honeypot:
-        icon: /icons/cowrie.svg
-        href: https://netdata.lan
-        description: SSH/Telnet Deception Layer
         widget:
-          type: netdata
-          url: http://host.containers.internal:19999
-          node: b-k3s
-          chart: net.eth0
+          type: customapi
+          url: http://host.containers.internal:19999/api/v1/data?chart=docker_local.containers_state&points=1&group=average
+          refreshInterval: 15000
+          mappings:
+            - field: data.0.1
+              label: Running
+              format: float
+            - field: data.0.3
+              label: Exited
+              format: float
     - NightForge Shield:
         icon: /icons/shield.svg
         href: "#"
@@ -56,14 +62,17 @@
 
 - Monitoring:
     - Netdata:
-        icon: /icons/netdata.png
-        href: https://netdata.lan
-        description: Real-time System Metrics
         widget:
-          type: netdata
-          url: http://host.containers.internal:19999
-          node: b-k3s
-          chart: system.cpu
+          type: customapi
+          url: http://host.containers.internal:19999/api/v1/data?chart=system.cpu&points=1&group=average
+          refreshInterval: 15000
+          mappings:
+            - field: data.0.6
+              label: User %
+              format: float
+            - field: data.0.7
+              label: Sys %
+              format: float
     - Pi-hole DNS:
         icon: /icons/pi-hole.png
         href: https://pihole.lan/admin
