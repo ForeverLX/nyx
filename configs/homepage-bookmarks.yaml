@@ -1,0 +1,18 @@
+---
+- Documentation:
+    - Arch Wiki:
+        - icon: arch-linux
+          href: https://wiki.archlinux.org/
+    - Suricata Docs:
+        - icon: /icons/suricata.svg
+          href: https://docs.suricata.io/
+    - Netdata Docs:
+        - icon: /icons/netdata.png
+          href: https://learn.netdata.cloud/
+- Local Lab:
+    - Veil Gitea:
+        - icon: /icons/gitea.png
+          href: https://git.lan/foreverlx/veil
+    - Veil Backups:
+        - icon: /icons/gitea.png
+          href: https://git.lan/foreverlx/backups

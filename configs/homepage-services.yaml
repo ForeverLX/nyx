@@ -1,0 +1,79 @@
+- Cerberus Metrics:
+    - Cerberus Live Graphs:
+        icon: /icons/netdata.png
+        href: https://netdata.lan
+        description: Live System Graphs
+        widget:
+          type: iframe
+          src: https://netdata.lan/v3/#after=-300;theme=slate
+          classes: h-96 w-full
+          allowScrolling: yes
+- Cerberus Threat Intel:
+    - Suricata IDS:
+        widget:
+          type: customapi
+          url: http://host.containers.internal:19999/api/v1/data?chart=app.Suricata-Main_cpu_utilization&points=1&group=average
+          refreshInterval: 15000
+          mappings:
+            - field: data.0.1
+              label: User CPU %
+              format: float
+            - field: data.0.2
+              label: Sys CPU %
+              format: float
+    - Cowrie Honeypot:
+        widget:
+          type: customapi
+          url: http://host.containers.internal:19999/api/v1/data?chart=docker_local.containers_state&points=1&group=average
+          refreshInterval: 15000
+          mappings:
+            - field: data.0.1
+              label: Running
+              format: float
+            - field: data.0.3
+              label: Exited
+              format: float
+    - NightForge Shield:
+        icon: /icons/shield.svg
+        href: "#"
+        description: Scan Queue — Phase 4
+
+- Core Infrastructure:
+    - Gitea:
+        icon: /icons/gitea.png
+        href: https://git.lan
+        description: Private Git Server
+        widget:
+          type: gitea
+          url: http://host.containers.internal:3000
+          key: "4151a032eb61bd1e7d1e1de2bc3bb0d12ca3ccfb"
+    - Vaultwarden:
+        icon: /icons/vaultwarden.png
+        href: https://vault.lan
+        description: Password Management
+    - Pi-hole:
+        icon: /icons/pi-hole.png
+        href: https://pihole.lan/admin
+        description: Network DNS & Ad Block
+    - Homepage:
+        icon: /icons/homepage.png
+        href: https://dash.lan
+        description: This Dashboard
+
+- Monitoring:
+    - Netdata:
+        widget:
+          type: customapi
+          url: http://host.containers.internal:19999/api/v1/data?chart=system.cpu&points=1&group=average
+          refreshInterval: 15000
+          mappings:
+            - field: data.0.6
+              label: User %
+              format: float
+            - field: data.0.7
+              label: Sys %
+              format: float
+    - Pi-hole DNS:
+        icon: /icons/pi-hole.png
+        href: https://pihole.lan/admin
+        description: DNS Query Statistics
