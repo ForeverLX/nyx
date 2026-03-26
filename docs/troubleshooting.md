@@ -240,3 +240,24 @@ replaced by Quadlet with correct After= directives
 management, consistent with rest of stack
 **Lesson:** Hand-written podman-generate-systemd units are fragile —
 always use Quadlets for new deployments
+
+---
+
+### Issue: audit: error in audit_log_subj_ctx -- kernel audit errors on every sudo call
+**Symptom:** 1000+ `audit: error in audit_log_subj_ctx` kernel errors per boot.
+Errors fire in bursts correlated with sudo invocations and network events.
+**Root cause:** AppArmor enabled with `security=apparmor` kernel parameter but
+no profiles configured for NightForge workload. Audit subsystem failed to
+resolve AppArmor security contexts for sudo and network namespace events.
+Stale audit rules also present (/Downloads, /go, /VirtualBox-VMs) from prior
+setup -- removed as part of investigation.
+**Resolution:**
+1. Remove stale audit rules from /etc/audit/rules.d/example.rules
+2. sudo systemctl disable --now apparmor
+3. sudo pacman -Rns apparmor
+4. Remove `security=apparmor` from GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub
+5. sudo grub-mkconfig -o /boot/grub/grub.cfg
+6. Reboot to confirm errors stop
+**Lesson:** Default AppArmor install without intentional profile configuration
+generates audit noise without security benefit. If AppArmor is not part of your
+intentional security stack, remove it rather than leaving it misconfigured.
