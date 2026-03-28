@@ -227,6 +227,21 @@ risk that rp_filter normally guards against.
 
 ---
 
+### Issue: Caddy host-network container cannot reach pasta containers via localhost
+**Symptom:** 502 errors on all pasta-networked container upstreams. Caddy logs show
+"read tcp [::1]:PORT->[::1]:PORT: read: connection reset by peer"
+**Root cause:** Caddy runs Network=host. On dual-stack hosts, localhost resolves to
+::1. Pasta containers bind on 0.0.0.0:PORT (IPv4 only). IPv6 connection attempts
+are reset immediately by pasta's userspace stack.
+**Resolution:** Use explicit 127.0.0.1:PORT for all pasta container upstreams in
+Caddyfile. host.containers.internal is incorrect in this direction — it is for
+pasta containers reaching the host, not for the host reaching pasta containers.
+**Lesson:** Always use 127.0.0.1 not localhost for Caddy reverse_proxy upstreams to
+pasta containers. Audit all Caddyfile entries whenever adding a new
+pasta-networked container.
+
+---
+
 ## Pi-hole
 
 ### Issue: Pi-hole v6 Homepage widget incompatible
