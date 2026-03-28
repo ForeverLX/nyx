@@ -128,6 +128,14 @@ Ask all five before generating anything. Wait for Darrius to answer each one.
 4. What's the priority for next session?
 5. Anything to add to the backlog or ideas list?
 
+**Step 1b — Backlog review at close**
+Review Section 5 of the handoff. Identify:
+1. Which backlog items were completed this session — remove or mark done
+2. Which gate conditions or blockers have been resolved since last session
+3. What the next session priority should be based on current state
+
+State the next session priority explicitly before outputting the handoff sections. This step runs at every session close without exception.
+
 **Step 2 — Identify which sections changed**
 
 Based on the answers, identify which of the seven handoff sections need updating:
@@ -171,7 +179,7 @@ Output only the sections identified in Step 2, plus Section 7. Label each sectio
 **Step 5 — Provide Claude Code prompt**
 
 Output a complete Claude Code prompt containing:
-1. Instruction to copy azrael-handoff-q1-sNNN.md to azrael-handoff-q1-s(NNN+1).md
+1. Instruction to copy ~/Documents/azrael-ops/azrael-handoff-q1-sNNN.md to ~/Documents/azrael-ops/azrael-handoff-q1-s(NNN+1).md
 2. The exact surgical edits for each changed section — quoted text to find, replacement text
 3. The commit command:
    git add azrael-handoff-q1-s(NNN+1).md && git commit -m "docs: session handoff YYYY-MM-DD S(NNN+1)"
