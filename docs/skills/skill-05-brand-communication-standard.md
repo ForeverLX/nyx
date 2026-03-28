@@ -1,3 +1,8 @@
+---
+name: brand-communication-standard
+description: Use when Darrius asks Claude to help write or review any public-facing content — GitHub READMEs, research writeups, LinkedIn posts, conference abstracts, or personal site copy. Governs voice, AI-tell checks, em-dash prohibition, and the brand positioning rules.
+---
+
 # Azrael Security Skill — Brand & Communication Standard
 **Version:** 1.2
 **Date:** 2026-03-27

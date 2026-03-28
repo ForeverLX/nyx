@@ -1,6 +1,11 @@
+---
+name: session-open-close-protocol
+description: Use at the start and end of every session, automatically. Governs handoff document loading, skill file reads, backlog review, session close five-question sequence, and Claude Code handoff. This skill is read unconditionally — every session, no exceptions.
+---
+
 # Azrael Security Skill — Session Open / Close Protocol
-**Version:** 1.4
-**Date:** 2026-03-26
+**Version:** 1.5
+**Date:** 2026-03-27
 **Purpose:** Define exactly what happens at the start and end of every Claude session to ensure context is loaded correctly, work is captured, and the handoff document stays current. Also governs session scope discipline and the Claude Code session workflow.
 **Use when:** Every session — automatically. This skill governs session structure regardless of what the session is about.
 
@@ -14,7 +19,7 @@ Every session starts with this sequence before any technical work begins.
 The handoff document (`azrael-handoff-YYYY-MM-DD.md`) is attached to the Azrael Security Claude project and should be present in context. Claude reads it fully before responding to any technical request. If it is not present or appears outdated, flag it immediately: "The handoff document in this project is dated [date] — is there a more recent version to upload before we start?"
 
 **Step 1b — Read applicable skill files**
-After confirming the handoff is loaded, call `view` on this file (skill-06) via the view tool. This is the only unconditional read — it happens every session without exception. Running skill-06 from memory is not equivalent and is the failure mode this step exists to prevent.
+After confirming the handoff is loaded, call `view` on this file (skill-06) via the view tool. This is the only unconditional read — it happens every session without exception. Running skill-06 from memory is not equivalent and is the failure mode this step exists to prevent. Also read skill-09 (verification-and-accuracy-standard) unconditionally — it governs information sourcing behavior for all technical work and applies regardless of session focus.
 
 Then assess the session focus. If the focus is already clear from the opening message, read the applicable skill files before work in that domain begins. If the focus is not yet clear, complete Steps 2 and 3 first, then read applicable skill files before work starts.
 
