@@ -200,6 +200,22 @@ risk that rp_filter normally guards against.
 
 ---
 
+### Issue: wg-quick service added to runlevel but interface doesn't come up on boot
+**Symptom:** rc-update add wg-quick default succeeds, rc-status shows stopped after reboot, wg0 missing
+**Root cause:** wg-quick init script on Alpine requires a named symlink — the interface name is parsed from the service name after the dot (SVCNAME#*.). Registering wg-quick directly does nothing.
+**Resolution:** ln -s /etc/init.d/wg-quick /etc/init.d/wg-quick.wg0, then rc-update del wg-quick default && rc-update add wg-quick.wg0 default
+**Lesson:** Alpine OpenRC wg-quick pattern: service name = wg-quick.<interface>. The generic wg-quick service name is not functional.
+
+---
+
+### Issue: WireGuard mesh peers unreachable from existing spokes after new peer added
+**Symptom:** New peer added to hub, existing spokes cannot reach it via WireGuard IP
+**Root cause:** Existing spoke configs had AllowedIPs = 10.0.0.1/32 on the Cerberus peer — routes traffic destined for Cerberus only, not other mesh peers
+**Resolution:** Update all spoke configs to AllowedIPs = 10.0.0.0/24 on the Cerberus peer. On NixOS, update configuration.nix and rebuild.
+**Lesson:** In hub-and-spoke, spoke AllowedIPs for the hub must cover the full mesh subnet, not just the hub's IP.
+
+---
+
 ## TLS & Caddy
 
 ### Issue: Caddy CA certificate not trusted on Cerberus itself
@@ -261,3 +277,13 @@ setup -- removed as part of investigation.
 **Lesson:** Default AppArmor install without intentional profile configuration
 generates audit noise without security benefit. If AppArmor is not part of your
 intentional security stack, remove it rather than leaving it misconfigured.
+
+---
+
+## Nginx
+
+### Issue: Nginx Server header not masked by proxy_hide_header + add_header
+**Symptom:** Server header still visible in responses despite proxy_hide_header Server and add_header Server directives
+**Root cause:** proxy_hide_header only removes headers from proxied responses. add_header cannot override headers Nginx sets natively. Both are insufficient for masking the Server header on non-proxied responses.
+**Resolution:** Install nginx-mod-http-headers-more and use more_set_headers "Server: <value>" directive instead.
+**Lesson:** For full Server header control on Alpine/Nginx, nginx-mod-http-headers-more is required. proxy_hide_header and add_header are not equivalent.
